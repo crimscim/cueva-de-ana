@@ -1,0 +1,297 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		35FF356016401C9C00A3C6DB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35FF355F16401C9C00A3C6DB /* UIKit.framework */; };
+		35FF356216401C9C00A3C6DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35FF356116401C9C00A3C6DB /* Foundation.framework */; };
+		35FF356416401C9C00A3C6DB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35FF356316401C9C00A3C6DB /* CoreGraphics.framework */; };
+		35FF356A16401C9C00A3C6DB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 35FF356816401C9C00A3C6DB /* InfoPlist.strings */; };
+		35FF356C16401C9C00A3C6DB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FF356B16401C9C00A3C6DB /* main.m */; };
+		35FF357016401C9C00A3C6DB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FF356F16401C9C00A3C6DB /* AppDelegate.m */; };
+		35FF357216401C9C00A3C6DB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 35FF357116401C9C00A3C6DB /* Default.png */; };
+		35FF357416401C9C00A3C6DB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 35FF357316401C9C00A3C6DB /* Default@2x.png */; };
+		35FF357616401C9C00A3C6DB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 35FF357516401C9C00A3C6DB /* Default-568h@2x.png */; };
+		35FF357916401C9C00A3C6DB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FF357816401C9C00A3C6DB /* ViewController.m */; };
+		35FF357C16401C9C00A3C6DB /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35FF357A16401C9C00A3C6DB /* ViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		35FF355B16401C9C00A3C6DB /* Cuevana.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cuevana.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		35FF355F16401C9C00A3C6DB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		35FF356116401C9C00A3C6DB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		35FF356316401C9C00A3C6DB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		35FF356716401C9C00A3C6DB /* Cuevana-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Cuevana-Info.plist"; sourceTree = "<group>"; };
+		35FF356916401C9C00A3C6DB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		35FF356B16401C9C00A3C6DB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		35FF356D16401C9C00A3C6DB /* Cuevana-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cuevana-Prefix.pch"; sourceTree = "<group>"; };
+		35FF356E16401C9C00A3C6DB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		35FF356F16401C9C00A3C6DB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		35FF357116401C9C00A3C6DB /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		35FF357316401C9C00A3C6DB /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		35FF357516401C9C00A3C6DB /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		35FF357716401C9C00A3C6DB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		35FF357816401C9C00A3C6DB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		35FF357B16401C9C00A3C6DB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		35FF355816401C9C00A3C6DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35FF356016401C9C00A3C6DB /* UIKit.framework in Frameworks */,
+				35FF356216401C9C00A3C6DB /* Foundation.framework in Frameworks */,
+				35FF356416401C9C00A3C6DB /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		35FF355016401C9C00A3C6DB = {
+			isa = PBXGroup;
+			children = (
+				35FF356516401C9C00A3C6DB /* Cuevana */,
+				35FF355E16401C9C00A3C6DB /* Frameworks */,
+				35FF355C16401C9C00A3C6DB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		35FF355C16401C9C00A3C6DB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				35FF355B16401C9C00A3C6DB /* Cuevana.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		35FF355E16401C9C00A3C6DB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				35FF355F16401C9C00A3C6DB /* UIKit.framework */,
+				35FF356116401C9C00A3C6DB /* Foundation.framework */,
+				35FF356316401C9C00A3C6DB /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		35FF356516401C9C00A3C6DB /* Cuevana */ = {
+			isa = PBXGroup;
+			children = (
+				35FF356E16401C9C00A3C6DB /* AppDelegate.h */,
+				35FF356F16401C9C00A3C6DB /* AppDelegate.m */,
+				35FF357716401C9C00A3C6DB /* ViewController.h */,
+				35FF357816401C9C00A3C6DB /* ViewController.m */,
+				35FF357A16401C9C00A3C6DB /* ViewController.xib */,
+				35FF356616401C9C00A3C6DB /* Supporting Files */,
+			);
+			path = Cuevana;
+			sourceTree = "<group>";
+		};
+		35FF356616401C9C00A3C6DB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				35FF356716401C9C00A3C6DB /* Cuevana-Info.plist */,
+				35FF356816401C9C00A3C6DB /* InfoPlist.strings */,
+				35FF356B16401C9C00A3C6DB /* main.m */,
+				35FF356D16401C9C00A3C6DB /* Cuevana-Prefix.pch */,
+				35FF357116401C9C00A3C6DB /* Default.png */,
+				35FF357316401C9C00A3C6DB /* Default@2x.png */,
+				35FF357516401C9C00A3C6DB /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		35FF355A16401C9C00A3C6DB /* Cuevana */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 35FF357F16401C9C00A3C6DB /* Build configuration list for PBXNativeTarget "Cuevana" */;
+			buildPhases = (
+				35FF355716401C9C00A3C6DB /* Sources */,
+				35FF355816401C9C00A3C6DB /* Frameworks */,
+				35FF355916401C9C00A3C6DB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Cuevana;
+			productName = Cuevana;
+			productReference = 35FF355B16401C9C00A3C6DB /* Cuevana.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		35FF355216401C9C00A3C6DB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Camilo Vera Bezmalinovic";
+			};
+			buildConfigurationList = 35FF355516401C9C00A3C6DB /* Build configuration list for PBXProject "Cuevana" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 35FF355016401C9C00A3C6DB;
+			productRefGroup = 35FF355C16401C9C00A3C6DB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				35FF355A16401C9C00A3C6DB /* Cuevana */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		35FF355916401C9C00A3C6DB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35FF356A16401C9C00A3C6DB /* InfoPlist.strings in Resources */,
+				35FF357216401C9C00A3C6DB /* Default.png in Resources */,
+				35FF357416401C9C00A3C6DB /* Default@2x.png in Resources */,
+				35FF357616401C9C00A3C6DB /* Default-568h@2x.png in Resources */,
+				35FF357C16401C9C00A3C6DB /* ViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		35FF355716401C9C00A3C6DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35FF356C16401C9C00A3C6DB /* main.m in Sources */,
+				35FF357016401C9C00A3C6DB /* AppDelegate.m in Sources */,
+				35FF357916401C9C00A3C6DB /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		35FF356816401C9C00A3C6DB /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				35FF356916401C9C00A3C6DB /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		35FF357A16401C9C00A3C6DB /* ViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				35FF357B16401C9C00A3C6DB /* en */,
+			);
+			name = ViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		35FF357D16401C9C00A3C6DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		35FF357E16401C9C00A3C6DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		35FF358016401C9C00A3C6DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Cuevana/Cuevana-Prefix.pch";
+				INFOPLIST_FILE = "Cuevana/Cuevana-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		35FF358116401C9C00A3C6DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Cuevana/Cuevana-Prefix.pch";
+				INFOPLIST_FILE = "Cuevana/Cuevana-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		35FF355516401C9C00A3C6DB /* Build configuration list for PBXProject "Cuevana" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				35FF357D16401C9C00A3C6DB /* Debug */,
+				35FF357E16401C9C00A3C6DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		35FF357F16401C9C00A3C6DB /* Build configuration list for PBXNativeTarget "Cuevana" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				35FF358016401C9C00A3C6DB /* Debug */,
+				35FF358116401C9C00A3C6DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 35FF355216401C9C00A3C6DB /* Project object */;
+}
