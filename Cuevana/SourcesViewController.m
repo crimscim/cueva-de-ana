@@ -9,11 +9,15 @@
 #import "SourcesViewController.h"
 #import "SourceModel.h"
 #import "SourceResultObject.h"
+#import "HostParserModel.h"
+#import <MediaPlayer/MediaPlayer.h>
 @interface SourcesViewController ()
-<UITableViewDataSource,UITableViewDelegate,SourceModelDelegate>
+<UITableViewDataSource,UITableViewDelegate,SourceModelDelegate,HostParserModelDelegate>
 
 @property(nonatomic,strong) IBOutlet UITableView *tableView;
 @property(nonatomic,strong) SourceModel *model;
+@property(nonatomic,strong) HostParserModel *hostParserModel;
+
 @end
 
 
@@ -24,6 +28,8 @@
     self = [super init];
     if (self)
     {
+        self.hostParserModel = [[HostParserModel alloc] init];
+        self.hostParserModel.delegate = self;
         self.model = [[SourceModel alloc] init];
         self.model.delegate = self;
         [self.model getSourcesForEpisodeResultObject:resultObject];
@@ -36,6 +42,8 @@
     self = [super init];
     if (self)
     {
+        self.hostParserModel = [[HostParserModel alloc] init];
+        self.hostParserModel.delegate = self;
         self.model = [[SourceModel alloc] init];
         self.model.delegate = self;
         [self.model getSourcesForSearchResultObject:resultObject];
@@ -117,40 +125,21 @@
 {
     [self.tableView reloadData];
 }
-- (void)sourceModel:(SourceModel*)model didFinishLoadingSourceURL:(NSURL*)url;
+- (void)sourceModel:(SourceModel*)model didFinishLoadingSourceURL:(NSURL*)url
 {
-
+#warning this is added just for testing
+    [self.view addSubview:self.hostParserModel.webView];
+    [self.hostParserModel getFileURLFromURL:url];
 }
 
-//- (void)cuevanaCaptchaNotification:(NSNotification*)notification
-//{
-//    [self.view addSubview:self.model.webView];
-//    
-//    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
-//        CGRect frame = self.model.webView.frame;
-//        frame.origin.y = 0;
-//        self.model.webView.frame = frame;
-//        [self.tableView setContentInset:UIEdgeInsetsMake(frame.size.height, 0, 0, 0)];
-//        [self.tableView setScrollIndicatorInsets:self.tableView.contentInset];
-//        [self.tableView scrollToRowAtIndexPath:self.tableView.indexPathForSelectedRow atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-//
-//    } completion:^(BOOL finished) {
-//        
-//    }];
-//    
-//}
-//- (void)cuevanaSourceURLNotification:(NSNotification*)notification
-//{
-////    NSURL *url = notification.userInfo[@"URL"];
-////    MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-////    [self.navigationController presentMoviePlayerViewControllerAnimated:moviePlayer];
-////    self.moviePlayer = moviePlayer;
-//}
-//- (void)keyboardWillShow:(NSNotification*)notification
-//{
-//    [self performSelector:@selector(readjustWebviewScroller) withObject:nil afterDelay:0];
-//}
-//- (void)readjustWebviewScroller {
-//    self.model.webView.scrollView.bounds = self.model.webView.bounds;
-//}
+#pragma mark - HostParserModel Delegate
+-(void)hostParserModel:(HostParserModel *)model didFinishLoadingFileURL:(NSURL *)url
+{
+    MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+    [self presentMoviePlayerViewControllerAnimated:moviePlayer];
+    [moviePlayer.moviePlayer play];
+    
+    NSLog(@"URL VIDEO: %@",url);
+}
+
 @end

@@ -17,7 +17,6 @@
 @interface SourceModel : NSObject
 @property (nonatomic,strong) NSArray *arraySources;
 @property (nonatomic,weak) id <SourceModelDelegate> delegate;
-@property (nonatomic,strong) UIWebView *webView;
 
 - (void)getSourcesForEpisodeResultObject:(EpisodeResultObject*)object;
 - (void)getSourcesForSearchResultObject:(SearchResultObject*)object;

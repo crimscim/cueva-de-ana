@@ -15,6 +15,7 @@
 #import "SearchResultObject.h"
 @interface SourceModel ()
 <UIWebViewDelegate>
+@property (nonatomic,strong) UIWebView *webView;
 @property (nonatomic,strong) AFHTTPClient *httpClient;
 @end
 
@@ -121,11 +122,6 @@
     
 }
 
-#pragma mark - WebView Delegate
-- (void)submitCaptcha
-{
-    [self.webView stringByEvaluatingJavaScriptFromString:@"document.forms[0].submit();"];
-}
 #pragma mark UIWebView Delegate
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -148,7 +144,7 @@
             urlDecoded = split[0];
         }
         
-        NSLog(@"URL %@",urlDecoded);
+        [self.delegate sourceModel:self didFinishLoadingSourceURL:[NSURL URLWithString:urlDecoded]];
         
         return NO;
     }

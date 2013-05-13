@@ -21,6 +21,7 @@
 		35A5B686165408390065D723 /* SearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35A5B685165408390065D723 /* SearchCell.xib */; };
 		35A5B68916540D270065D723 /* button-back.png in Resources */ = {isa = PBXBuildFile; fileRef = 35A5B68716540D270065D723 /* button-back.png */; };
 		35A5B68A16540D270065D723 /* button-back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 35A5B68816540D270065D723 /* button-back@2x.png */; };
+		35AA12151740575D00845FA6 /* HostParserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 35AA12141740575D00845FA6 /* HostParserModel.m */; };
 		35B803D0164230E30042DA17 /* SourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35B803CF164230E30042DA17 /* SourcesViewController.m */; };
 		35B803D3164231700042DA17 /* SourcesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35B803D2164231700042DA17 /* SourcesViewController.xib */; };
 		35B803D61642367F0042DA17 /* SourceResultObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 35B803D51642367F0042DA17 /* SourceResultObject.m */; };
@@ -80,6 +81,8 @@
 		35A5B685165408390065D723 /* SearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchCell.xib; sourceTree = "<group>"; };
 		35A5B68716540D270065D723 /* button-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-back.png"; sourceTree = "<group>"; };
 		35A5B68816540D270065D723 /* button-back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-back@2x.png"; sourceTree = "<group>"; };
+		35AA12131740575D00845FA6 /* HostParserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HostParserModel.h; sourceTree = "<group>"; };
+		35AA12141740575D00845FA6 /* HostParserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HostParserModel.m; sourceTree = "<group>"; };
 		35B803CE164230E30042DA17 /* SourcesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SourcesViewController.h; sourceTree = "<group>"; };
 		35B803CF164230E30042DA17 /* SourcesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SourcesViewController.m; sourceTree = "<group>"; };
 		35B803D2164231700042DA17 /* SourcesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SourcesViewController.xib; sourceTree = "<group>"; };
@@ -192,13 +195,6 @@
 			name = Sources;
 			sourceTree = "<group>";
 		};
-		359B8D461640D269009F8851 /* ResultObject */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = ResultObject;
-			sourceTree = "<group>";
-		};
 		35A5B66A1653F1360065D723 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,6 +211,7 @@
 		35A5B66F1653F1430065D723 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				35AA12121740573B00845FA6 /* HostParser */,
 				35A5B678165403D40065D723 /* Search */,
 				3510114C174028D100C97622 /* Episodes */,
 				35735144174037CE00CF7E72 /* Sources */,
@@ -237,6 +234,15 @@
 				35A5B685165408390065D723 /* SearchCell.xib */,
 			);
 			name = Search;
+			sourceTree = "<group>";
+		};
+		35AA12121740573B00845FA6 /* HostParser */ = {
+			isa = PBXGroup;
+			children = (
+				35AA12131740575D00845FA6 /* HostParserModel.h */,
+				35AA12141740575D00845FA6 /* HostParserModel.m */,
+			);
+			name = HostParser;
 			sourceTree = "<group>";
 		};
 		35FF355016401C9C00A3C6DB = {
@@ -272,11 +278,10 @@
 		35FF356516401C9C00A3C6DB /* Cuevana */ = {
 			isa = PBXGroup;
 			children = (
-				3573514317402B1300CF7E72 /* CuevanaConstants.h */,
-				35A5B66F1653F1430065D723 /* ViewControllers */,
-				359B8D461640D269009F8851 /* ResultObject */,
 				35FF356E16401C9C00A3C6DB /* AppDelegate.h */,
 				35FF356F16401C9C00A3C6DB /* AppDelegate.m */,
+				3573514317402B1300CF7E72 /* CuevanaConstants.h */,
+				35A5B66F1653F1430065D723 /* ViewControllers */,
 				35FF356616401C9C00A3C6DB /* Supporting Files */,
 			);
 			path = Cuevana;
@@ -468,6 +473,7 @@
 				35A37B17173EF01300CFF796 /* SearchModel.m in Sources */,
 				357351421740295E00CF7E72 /* EpisodesModel.m in Sources */,
 				3573514717403F3E00CF7E72 /* SourceModel.m in Sources */,
+				35AA12151740575D00845FA6 /* HostParserModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
