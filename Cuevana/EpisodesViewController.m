@@ -50,7 +50,6 @@
     
     [self createHeaderView];
     
-    [self createButtonBack];
 }
 - (void)createHeaderView
 {
@@ -64,24 +63,6 @@
     cell.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [self.viewHeader addSubview:cell];
 }
-- (void)createButtonBack
-{
-    UIImage *backImage = [UIImage imageNamed:@"button-back.png"];
-    
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setImage:backImage forState:UIControlStateNormal];
-    [backButton setFrame:CGRectMake(0, 0, backImage.size.width, backImage.size.height)];
-    [backButton addTarget:self action:@selector(popViewController) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* backBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
-    self.navigationItem.leftBarButtonItem = backBarButtonItem;
-    
-}
-- (void)popViewController
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 #pragma mark - TableView Delegates
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

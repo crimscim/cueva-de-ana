@@ -20,7 +20,6 @@
 
 @end
 
-
 @implementation SourcesViewController
 
 - (id)initWithEpisodeResult:(EpisodeResultObject *)resultObject
@@ -58,26 +57,6 @@
     [super viewDidLoad];
     
     self.title = @"Sources";
-    
-    [self createButtonBack];
-
-}
-- (void)createButtonBack
-{
-    UIImage *backImage = [UIImage imageNamed:@"button-back.png"];
-    
-    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton setImage:backImage forState:UIControlStateNormal];
-    [backButton setFrame:CGRectMake(0, 0, backImage.size.width, backImage.size.height)];
-    [backButton addTarget:self action:@selector(popViewController) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* backBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
-    self.navigationItem.leftBarButtonItem = backBarButtonItem;
-    
-}
-- (void)popViewController
-{
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - TableView Delegate
@@ -128,6 +107,10 @@
 - (void)sourceModel:(SourceModel*)model didFinishLoadingSourceURL:(NSURL*)url
 {
 #warning this is added just for testing
+    
+    NSLog(@"Will Parse: %@",url);
+    
+    self.hostParserModel.webView.frame = self.view.bounds;
     [self.view addSubview:self.hostParserModel.webView];
     [self.hostParserModel getFileURLFromURL:url];
 }
@@ -135,6 +118,8 @@
 #pragma mark - HostParserModel Delegate
 -(void)hostParserModel:(HostParserModel *)model didFinishLoadingFileURL:(NSURL *)url
 {
+    [model.webView removeFromSuperview];
+    
     MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
     [self presentMoviePlayerViewControllerAnimated:moviePlayer];
     [moviePlayer.moviePlayer play];
