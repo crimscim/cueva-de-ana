@@ -11,4 +11,5 @@
 @interface PlayerViewController : MPMoviePlayerViewController
 //using a button... just to use the vertical alignment
 @property (nonatomic,strong) UIButton *buttonSubtitles;
+@property (nonatomic,strong) NSURL *urlSubs;
 @end

@@ -42,7 +42,6 @@
 {
     NSError *error = nil;
     NSString *srtContent = [[NSString alloc] initWithContentsOfURL:url encoding:NSASCIIStringEncoding error:&error];
-    
     [self parseSrtFileContent:srtContent];
 }
 
@@ -123,7 +122,7 @@
             return item;
         }
     }
-    return item;//probably should be nil
+    return nil;//item; probably should be nil
 }
 
 @end

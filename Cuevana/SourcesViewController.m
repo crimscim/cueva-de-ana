@@ -17,6 +17,7 @@
 @property(nonatomic,strong) IBOutlet UITableView *tableView;
 @property(nonatomic,strong) SourceModel *model;
 @property(nonatomic,strong) HostParserModel *hostParserModel;
+@property(nonatomic,strong) PlayerViewController *player;
 @end
 
 @implementation SourcesViewController
@@ -114,17 +115,22 @@
 }
 -(void)sourceModel:(SourceModel *)model didFinishLoadingSubtitles:(NSArray *)subsArray
 {
-    
+
 }
 #pragma mark - HostParserModel Delegate
 -(void)hostParserModel:(HostParserModel *)model didFinishLoadingFileURL:(NSURL *)url
 {
     [model.webView removeFromSuperview];
     
-    PlayerViewController *player = [[PlayerViewController alloc] initWithContentURL:url];
-    [self presentMoviePlayerViewControllerAnimated:player];
-    [player.moviePlayer prepareToPlay];
-    [player.moviePlayer play];
+    self.player = [[PlayerViewController alloc] initWithContentURL:url];
+    [self presentMoviePlayerViewControllerAnimated:self.player];
+    [self.player.moviePlayer prepareToPlay];
+    [self.player.moviePlayer play];
+    
+    if (self.model.arraySubtitles.count >0)
+    {
+         [self.player setUrlSubs:[NSURL URLWithString:self.model.arraySubtitles[0]]];
+    }
 }
 
 @end

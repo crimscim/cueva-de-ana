@@ -147,7 +147,15 @@
         
         [self.delegate sourceModel:self didFinishLoadingSourceURL:[NSURL URLWithString:urlDecoded]];
         
-        return (self.arraySubtitles == nil);
+        
+        if (self.arraySubtitles!=nil && self.arraySubtitles.count > 0)
+        {
+            [self.delegate sourceModel:self didFinishLoadingSubtitles:self.arraySubtitles];
+            return NO;
+        }
+        
+        
+        return YES;
     }
     
     return YES;
@@ -168,7 +176,7 @@
     NSArray *arraySubs = [subs componentsSeparatedByString:@","];
     self.arraySubtitles = arraySubs;
     
-    [self.delegate sourceModel:self didFinishLoadingSources:self.arraySubtitles];
+    [self.delegate sourceModel:self didFinishLoadingSubtitles:self.arraySubtitles];
 
 }
 @end
