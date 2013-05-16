@@ -19,6 +19,10 @@
 		35A5B6771653FBDF0065D723 /* cell-search-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 35A5B6751653FBDF0065D723 /* cell-search-bg@2x.png */; };
 		35A5B67B165406670065D723 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A5B67A165406670065D723 /* SearchCell.m */; };
 		35A5B686165408390065D723 /* SearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35A5B685165408390065D723 /* SearchCell.xib */; };
+		35A633DE1744650B0023131F /* UIWebView+JS.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A633DD1744650B0023131F /* UIWebView+JS.m */; };
+		35A633E117452E800023131F /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A633E017452E800023131F /* PlayerViewController.m */; };
+		35A633E517452EAD0023131F /* CVSrtParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A633E417452EAD0023131F /* CVSrtParser.m */; };
+		35A633E8174533460023131F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35A633E6174533300023131F /* QuartzCore.framework */; };
 		35AA12151740575D00845FA6 /* HostParserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 35AA12141740575D00845FA6 /* HostParserModel.m */; };
 		35B803D0164230E30042DA17 /* SourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35B803CF164230E30042DA17 /* SourcesViewController.m */; };
 		35B803D3164231700042DA17 /* SourcesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35B803D2164231700042DA17 /* SourcesViewController.xib */; };
@@ -77,6 +81,13 @@
 		35A5B679165406670065D723 /* SearchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchCell.h; sourceTree = "<group>"; };
 		35A5B67A165406670065D723 /* SearchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchCell.m; sourceTree = "<group>"; };
 		35A5B685165408390065D723 /* SearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchCell.xib; sourceTree = "<group>"; };
+		35A633DC1744650B0023131F /* UIWebView+JS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+JS.h"; sourceTree = "<group>"; };
+		35A633DD1744650B0023131F /* UIWebView+JS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+JS.m"; sourceTree = "<group>"; };
+		35A633DF17452E800023131F /* PlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewController.h; sourceTree = "<group>"; };
+		35A633E017452E800023131F /* PlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerViewController.m; sourceTree = "<group>"; };
+		35A633E317452EAD0023131F /* CVSrtParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVSrtParser.h; sourceTree = "<group>"; };
+		35A633E417452EAD0023131F /* CVSrtParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVSrtParser.m; sourceTree = "<group>"; };
+		35A633E6174533300023131F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		35AA12131740575D00845FA6 /* HostParserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HostParserModel.h; sourceTree = "<group>"; };
 		35AA12141740575D00845FA6 /* HostParserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HostParserModel.m; sourceTree = "<group>"; };
 		35B803CE164230E30042DA17 /* SourcesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SourcesViewController.h; sourceTree = "<group>"; };
@@ -153,6 +164,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35A633E8174533460023131F /* QuartzCore.framework in Frameworks */,
 				35B803DE1642B2010042DA17 /* MediaPlayer.framework in Frameworks */,
 				35FF356016401C9C00A3C6DB /* UIKit.framework in Frameworks */,
 				35FF356216401C9C00A3C6DB /* Foundation.framework in Frameworks */,
@@ -205,10 +217,11 @@
 		35A5B66F1653F1430065D723 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				35AA12121740573B00845FA6 /* HostParser */,
+				35AA12121740573B00845FA6 /* Parser */,
 				35A5B678165403D40065D723 /* Search */,
 				3510114C174028D100C97622 /* Episodes */,
 				35735144174037CE00CF7E72 /* Sources */,
+				35A633E217452E890023131F /* Player */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -230,13 +243,26 @@
 			name = Search;
 			sourceTree = "<group>";
 		};
-		35AA12121740573B00845FA6 /* HostParser */ = {
+		35A633E217452E890023131F /* Player */ = {
 			isa = PBXGroup;
 			children = (
+				35A633DF17452E800023131F /* PlayerViewController.h */,
+				35A633E017452E800023131F /* PlayerViewController.m */,
+			);
+			name = Player;
+			sourceTree = "<group>";
+		};
+		35AA12121740573B00845FA6 /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				35A633DC1744650B0023131F /* UIWebView+JS.h */,
+				35A633DD1744650B0023131F /* UIWebView+JS.m */,
+				35A633E317452EAD0023131F /* CVSrtParser.h */,
+				35A633E417452EAD0023131F /* CVSrtParser.m */,
 				35AA12131740575D00845FA6 /* HostParserModel.h */,
 				35AA12141740575D00845FA6 /* HostParserModel.m */,
 			);
-			name = HostParser;
+			name = Parser;
 			sourceTree = "<group>";
 		};
 		35FF355016401C9C00A3C6DB = {
@@ -261,6 +287,7 @@
 		35FF355E16401C9C00A3C6DB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				35A633E6174533300023131F /* QuartzCore.framework */,
 				35B803DD1642B2010042DA17 /* MediaPlayer.framework */,
 				35FF355F16401C9C00A3C6DB /* UIKit.framework */,
 				35FF356116401C9C00A3C6DB /* Foundation.framework */,
@@ -466,6 +493,9 @@
 				357351421740295E00CF7E72 /* EpisodesModel.m in Sources */,
 				3573514717403F3E00CF7E72 /* SourceModel.m in Sources */,
 				35AA12151740575D00845FA6 /* HostParserModel.m in Sources */,
+				35A633DE1744650B0023131F /* UIWebView+JS.m in Sources */,
+				35A633E117452E800023131F /* PlayerViewController.m in Sources */,
+				35A633E517452EAD0023131F /* CVSrtParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

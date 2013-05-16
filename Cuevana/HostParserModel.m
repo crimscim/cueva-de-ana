@@ -7,7 +7,7 @@
 //
 
 #import "HostParserModel.h"
-
+#import "UIWebView+JS.h"
 typedef enum
 {
     HostParserTypeFileBox,
@@ -16,12 +16,9 @@ typedef enum
     HostParserTypeUpToBox,
     HostParserTypeLimeVideo,
     HostParserTypeDoneVideo,
-    HostParserTypeVideoZed
+    HostParserTypeVideoZed,
+    HostParserTypeBillionUploads
 }HostParserType;
-
-//added to type a little less
-@interface UIWebView (JS) - (NSString*)js:(NSString*)js; @end
-@implementation UIWebView (JS) - (NSString*)js:(NSString*)js{return [self stringByEvaluatingJavaScriptFromString:js];} @end
 
 @interface HostParserModel ()
 <UIWebViewDelegate>
@@ -73,6 +70,10 @@ typedef enum
     {
         self.type = HostParserTypeVideoZed;
     }
+    else if ([urlString rangeOfString:@"billionuploads.com"].location !=NSNotFound)
+    {
+        self.type = HostParserTypeBillionUploads;
+    }
 
     [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
 
@@ -84,6 +85,11 @@ typedef enum
     {
         [self parseFileBox];
     }
+    else if(self.type == HostParserTypeBillionUploads)
+    {
+        [self parseBillionUploads];
+    }
+
 }
 - (void)parseFileBox
 {
@@ -101,5 +107,22 @@ typedef enum
         
         [self.webView js:@"var player_once = true;"];
     }
+}
+- (void)parseBillionUploads
+{
+    BOOL isButton = [self.webView js:@"$('#btn_download').length;"].boolValue;
+    BOOL isPlayer = [self.webView js:@"$('#dlink').length;"].boolValue;
+    if (isButton)
+    {
+        [self.webView js:@"setTimeout(\"$('#btn_download').click();\",1000*5);"];
+    }
+    else if (isPlayer && ![self.webView js:@"player_once;"].boolValue)
+    {
+        NSString *url = [self.webView js:@"$('#dlink').attr('href');"];
+        [self.delegate hostParserModel:self didFinishLoadingFileURL:[NSURL URLWithString:url]];
+        
+        [self.webView js:@"var player_once = true;"];
+    }
+
 }
 @end

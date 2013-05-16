@@ -16,15 +16,17 @@
 
 @interface SourceModel : NSObject
 @property (nonatomic,strong) NSArray *arraySources;
+@property (nonatomic,strong) NSArray *arraySubtitles;
 @property (nonatomic,weak) id <SourceModelDelegate> delegate;
 
 - (void)getSourcesForEpisodeResultObject:(EpisodeResultObject*)object;
 - (void)getSourcesForSearchResultObject:(SearchResultObject*)object;
-- (void)getCaptchaForSourceResultObject:(SourceResultObject*)object;
+- (void)getSourceFileForSourceResultObject:(SourceResultObject*)object;
 
 @end
 
 @protocol SourceModelDelegate <NSObject>
 - (void)sourceModel:(SourceModel*)model didFinishLoadingSources:(NSArray*)sources;
 - (void)sourceModel:(SourceModel*)model didFinishLoadingSourceURL:(NSURL*)url;
+- (void)sourceModel:(SourceModel*)model didFinishLoadingSubtitles:(NSArray*)subsArray;
 @end

@@ -10,14 +10,13 @@
 #import "SourceModel.h"
 #import "SourceResultObject.h"
 #import "HostParserModel.h"
-#import <MediaPlayer/MediaPlayer.h>
+#import "PlayerViewController.h"
 @interface SourcesViewController ()
 <UITableViewDataSource,UITableViewDelegate,SourceModelDelegate,HostParserModelDelegate>
 
 @property(nonatomic,strong) IBOutlet UITableView *tableView;
 @property(nonatomic,strong) SourceModel *model;
 @property(nonatomic,strong) HostParserModel *hostParserModel;
-
 @end
 
 @implementation SourcesViewController
@@ -94,7 +93,7 @@
 {
     SourceResultObject *resultObject = [self.model.arraySources objectAtIndex:indexPath.row];
 
-    [self.model getCaptchaForSourceResultObject:resultObject];
+    [self.model getSourceFileForSourceResultObject:resultObject];
     //[self.model getCaptcha:resultObject];
     
 }
@@ -106,25 +105,26 @@
 }
 - (void)sourceModel:(SourceModel*)model didFinishLoadingSourceURL:(NSURL*)url
 {
-#warning this is added just for testing
-    
     NSLog(@"Will Parse: %@",url);
     
+#warning this is added just for testing
     self.hostParserModel.webView.frame = self.view.bounds;
     [self.view addSubview:self.hostParserModel.webView];
     [self.hostParserModel getFileURLFromURL:url];
 }
-
+-(void)sourceModel:(SourceModel *)model didFinishLoadingSubtitles:(NSArray *)subsArray
+{
+    
+}
 #pragma mark - HostParserModel Delegate
 -(void)hostParserModel:(HostParserModel *)model didFinishLoadingFileURL:(NSURL *)url
 {
     [model.webView removeFromSuperview];
     
-    MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-    [self presentMoviePlayerViewControllerAnimated:moviePlayer];
-    [moviePlayer.moviePlayer play];
-    
-    NSLog(@"URL VIDEO: %@",url);
+    PlayerViewController *player = [[PlayerViewController alloc] initWithContentURL:url];
+    [self presentMoviePlayerViewControllerAnimated:player];
+    [player.moviePlayer prepareToPlay];
+    [player.moviePlayer play];
 }
 
 @end

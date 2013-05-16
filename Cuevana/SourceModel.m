@@ -13,6 +13,7 @@
 #import "SourceResultObject.h"
 #import "EpisodeResultObject.h"
 #import "SearchResultObject.h"
+#import "UIWebView+JS.h"
 @interface SourceModel ()
 <UIWebViewDelegate>
 @property (nonatomic,strong) UIWebView *webView;
@@ -48,7 +49,7 @@
         [self getSourcesWithID:object.resultId andType:@"pelicula"];
     }
 }
-- (void)getCaptchaForSourceResultObject:(SourceResultObject*)object
+- (void)getSourceFileForSourceResultObject:(SourceResultObject*)object
 {
     NSDictionary *params = @{@"def":@(object.quality),
                              @"audio":@(object.languageIndex),
@@ -146,9 +147,28 @@
         
         [self.delegate sourceModel:self didFinishLoadingSourceURL:[NSURL URLWithString:urlDecoded]];
         
-        return NO;
+        return (self.arraySubtitles == nil);
     }
     
     return YES;
+}
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    //NSString *urlString = webView.request.URL.absoluteString;
+    
+    if (self.arraySubtitles != nil) return;
+    
+    NSString *playerString = [webView js:@"showPlayer.toString()"];
+    
+    NSRange rangeOne = [playerString rangeOfString:@"captions.files="];
+    NSRange rangeTwo = [playerString rangeOfString:@"&captions.labels="];
+    
+    NSString *subs = [playerString substringWithRange:NSMakeRange(rangeOne.location+rangeOne.length, rangeTwo.location-(rangeOne.location+rangeOne.length))];
+        subs = [subs stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];    
+    NSArray *arraySubs = [subs componentsSeparatedByString:@","];
+    self.arraySubtitles = arraySubs;
+    
+    [self.delegate sourceModel:self didFinishLoadingSources:self.arraySubtitles];
+
 }
 @end

@@ -40,7 +40,6 @@
     tableViewResults.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableViewResults.backgroundColor = self.view.backgroundColor;
     
-    
 }
 
 #pragma mark - TableView Delegates
