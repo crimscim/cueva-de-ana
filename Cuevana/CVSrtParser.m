@@ -40,9 +40,12 @@
 #pragma mark - Parsing
 - (void)parseSrtFileFromURL:(NSURL*)url
 {
-    NSError *error = nil;
-    NSString *srtContent = [[NSString alloc] initWithContentsOfURL:url encoding:NSASCIIStringEncoding error:&error];
-    [self parseSrtFileContent:srtContent];
+    __weak CVSrtParser *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSString *srtContent = [[NSString alloc] initWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
+        [weakSelf parseSrtFileContent:srtContent];
+    });
+
 }
 
 - (void)parseSrtFileContent:(NSString*)content
@@ -92,7 +95,6 @@
 
 #pragma mark - Fetching
 //binary search for result
-//based in:
 - (CVSrtItem*)srtItemAtTime:(double)time
 {
     NSUInteger count = self.arraySrtItems.count;
