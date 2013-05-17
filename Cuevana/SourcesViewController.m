@@ -115,17 +115,31 @@
 }
 -(void)sourceModel:(SourceModel *)model didFinishLoadingSubtitles:(NSArray *)subsArray
 {
-
+    //should downlaod the srt file.. or select one to download...
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Subtitles" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    
+    NSString *srt = @"ID.srt";
+    for (NSString *urlSubs in subsArray)
+    {
+        NSString *code = [urlSubs substringWithRange:NSMakeRange(urlSubs.length-srt.length, 2)];
+        NSString *lang = [[NSLocale currentLocale] displayNameForKey:NSLocaleLanguageCode value:code];
+        
+        [actionSheet addButtonWithTitle:lang];
+    }
+    [actionSheet addButtonWithTitle:@"None"];
+    [actionSheet showInView:self.view];
+    
 }
 #pragma mark - HostParserModel Delegate
 -(void)hostParserModel:(HostParserModel *)model didFinishLoadingFileURL:(NSURL *)url
 {
-    [model.webView removeFromSuperview];
+    NSLog(@"File URL: %@",url);
     
+    [model.webView removeFromSuperview];
     self.player = [[PlayerViewController alloc] initWithContentURL:url];
     [self presentMoviePlayerViewControllerAnimated:self.player];
     [self.player.moviePlayer prepareToPlay];
-    [self.player.moviePlayer play];
     
     if (self.model.arraySubtitles.count >0)
     {
@@ -133,4 +147,16 @@
     }
 }
 
+@end
+@interface NSLocale (LocalizedCountries)
+- (NSArray*) localizedCountryNames;
+@end
+@implementation NSLocale (LocalizedCountries)
+- (NSArray*) localizedCountryNames
+{
+    NSMutableArray *array = [NSMutableArray array];
+    for ( NSString* code in [NSLocale ISOCountryCodes] )
+        [array addObject:[self displayNameForKey:NSLocaleCountryCode value:code]];
+    return [array sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+}
 @end

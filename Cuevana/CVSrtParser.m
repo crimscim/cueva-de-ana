@@ -131,7 +131,7 @@
 -(NSString*)description
 {
     
-    return [NSString stringWithFormat:@"CVSrtItem <%p> {\n%.03f --> %.03f,\n%@\n}",self,self.timeStart,self.timeEnd,self.text];
+    return [NSString stringWithFormat:@"CVSrtItem <%p> {%.03f --> %.03f,%@}",self,self.timeStart,self.timeEnd,self.text];
 }
 @end
 

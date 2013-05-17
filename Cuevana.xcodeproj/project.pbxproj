@@ -246,6 +246,8 @@
 		35A633E217452E890023131F /* Player */ = {
 			isa = PBXGroup;
 			children = (
+				35A633E317452EAD0023131F /* CVSrtParser.h */,
+				35A633E417452EAD0023131F /* CVSrtParser.m */,
 				35A633DF17452E800023131F /* PlayerViewController.h */,
 				35A633E017452E800023131F /* PlayerViewController.m */,
 			);
@@ -257,8 +259,6 @@
 			children = (
 				35A633DC1744650B0023131F /* UIWebView+JS.h */,
 				35A633DD1744650B0023131F /* UIWebView+JS.m */,
-				35A633E317452EAD0023131F /* CVSrtParser.h */,
-				35A633E417452EAD0023131F /* CVSrtParser.m */,
 				35AA12131740575D00845FA6 /* HostParserModel.h */,
 				35AA12141740575D00845FA6 /* HostParserModel.m */,
 			);

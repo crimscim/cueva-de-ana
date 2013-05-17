@@ -1,3 +1,4 @@
+
 //
 //  SourceModel.m
 //  Cuevana
@@ -172,11 +173,15 @@
     NSRange rangeTwo = [playerString rangeOfString:@"&captions.labels="];
     
     NSString *subs = [playerString substringWithRange:NSMakeRange(rangeOne.location+rangeOne.length, rangeTwo.location-(rangeOne.location+rangeOne.length))];
-        subs = [subs stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];    
-    NSArray *arraySubs = [subs componentsSeparatedByString:@","];
-    self.arraySubtitles = arraySubs;
+        subs = [subs stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
-    [self.delegate sourceModel:self didFinishLoadingSubtitles:self.arraySubtitles];
-
+    if (subs.length > 10)
+    {
+        NSArray *arraySubs = [subs componentsSeparatedByString:@","];
+        self.arraySubtitles = arraySubs;
+        
+        [self.delegate sourceModel:self didFinishLoadingSubtitles:self.arraySubtitles];
+    }
+    
 }
 @end
