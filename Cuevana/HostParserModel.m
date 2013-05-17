@@ -41,6 +41,10 @@ typedef enum
     
     return self;
 }
+- (void)cancelAll
+{
+    [self.webView stopLoading];
+}
 - (void)getFileURLFromURL:(NSURL*)url
 {
     NSString *urlString = url.absoluteString;

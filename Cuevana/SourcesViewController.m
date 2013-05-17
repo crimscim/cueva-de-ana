@@ -177,5 +177,11 @@
     }
 }
 
+-(void)dealloc
+{
+    [self.model cancelAll];
+    [self.hostParserModel cancelAll];
+}
+
 @end
 

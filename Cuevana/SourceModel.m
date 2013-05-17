@@ -35,6 +35,11 @@
     }
     return self;
 }
+- (void)cancelAll
+{
+    [self.httpClient cancelAllHTTPOperationsWithMethod:@"GET" path:kCuevanaPlayerGetSourcePath];
+    [self.webView stopLoading];
+}
 
 - (void)getSourcesForEpisodeResultObject:(EpisodeResultObject*)object
 {
@@ -78,15 +83,21 @@
     
     [requestOp setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
      {
-         NSRange rangeOne = [operation.responseString rangeOfString:@"var sources = "];
-         NSRange rangeTwo = [operation.responseString rangeOfString:@", sel_source = 0;"];
+         NSError *error = nil;
+         NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\{\\\"\\S+\\]\\}\\}"
+                                                                                options:NSRegularExpressionCaseInsensitive
+                                                                                  error:&error];
+         if (error) return;
          
-         NSRange find;
-         find.location = rangeOne.location+rangeOne.length;
-         find.length = rangeTwo.location - find.location;
+         NSString *string = operation.responseString;
          
-         NSString *sources = [operation.responseString substringWithRange:find];
-    
+         NSRange rangeOfFirstMatch = [regex rangeOfFirstMatchInString:string
+                                                              options:0 range:NSMakeRange(0, [string length])];
+         
+         if (rangeOfFirstMatch.location == NSNotFound) return;
+         
+         NSString *sources = [string substringWithRange:rangeOfFirstMatch];
+
          NSDictionary *dictionarySources = [sources JSONValue];
          
          NSMutableArray *mutableArraySources = [NSMutableArray array];
@@ -169,6 +180,14 @@
     
     NSString *playerString = [webView js:@"showPlayer.toString()"];
     
+//    NSError *error = nil;
+//    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"http(%3A)(%2F){2}sc.cuevana.tv(%2F)files(%2Fs%2F|%2F)sub(%2F)\\d+_\\w{2}\\.srt"
+//                                                                           options:NSRegularExpressionCaseInsensitive
+//                                                                             error:&error];
+//    if (error) return;
+    
+    
+    NSLog(@"Subtitles: %@",playerString);
     NSRange rangeOne = [playerString rangeOfString:@"captions.files="];
     NSRange rangeTwo = [playerString rangeOfString:@"&captions.labels="];
     

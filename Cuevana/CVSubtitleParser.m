@@ -9,7 +9,7 @@
 #import "CVSubtitleParser.h"
 
 @interface CVSubtitleParser ()
-@property (strong) NSMutableArray *arraySrtItems;
+@property (strong) NSMutableArray *arrayItems;
 @end
 
 @implementation CVSubtitleParser
@@ -20,7 +20,7 @@
     self = [super init];
     if (self)
     {
-        self.arraySrtItems = [NSMutableArray new];
+        self.arrayItems = [NSMutableArray new];
         [self parseSrtFileFromURL:url];
     }
     return self;
@@ -31,7 +31,7 @@
     self = [super init];
     if (self)
     {
-        self.arraySrtItems = [NSMutableArray new];
+        self.arrayItems = [NSMutableArray new];
         [self parseSrtFileContent:content];
     }
     return self;
@@ -58,6 +58,8 @@
     [formater setDateFormat:@"HH:mm:ss,SSS"];
     
     NSUInteger timeIntervalZero = [formater dateFromString:@"00:00:00,000"].timeIntervalSince1970;
+    
+    NSMutableArray *tempArray = [NSMutableArray array];
     
     for (NSUInteger i = 0 ; i < count ; i++)
     {
@@ -87,16 +89,20 @@
         }
         item.text = text;
         
-        [self.arraySrtItems addObject:item];
+        [tempArray addObject:item];
     }
 
+    self.arrayItems = tempArray;
 }
 
 #pragma mark - Fetching
 //binary search for result
 - (CVSubtitleItem*)subtitleItemAtTime:(double)time
 {
-    NSUInteger count = self.arraySrtItems.count;
+    NSUInteger count = self.arrayItems.count;
+    
+    if (count == 0) return nil;
+    
     NSUInteger low   = 0;
     NSUInteger mid   = 0;
     NSUInteger high  = count;
@@ -108,7 +114,7 @@
         
         if (mid >= count) return nil;
         
-        item = self.arraySrtItems[mid];
+        item = self.arrayItems[mid];
         
         if (time < item.timeStart && time < item.timeEnd)
         {
@@ -131,7 +137,6 @@
 @implementation CVSubtitleItem
 -(NSString*)description
 {
-    
     return [NSString stringWithFormat:@"CVSrtItem <%p> {%.03f --> %.03f,%@}",self,self.timeStart,self.timeEnd,self.text];
 }
 @end

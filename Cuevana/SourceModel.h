@@ -23,6 +23,7 @@
 - (void)getSourcesForSearchResultObject:(SearchResultObject*)object;
 - (void)getSourceFileForSourceResultObject:(SourceResultObject*)object;
 
+- (void)cancelAll;
 @end
 
 @protocol SourceModelDelegate <NSObject>

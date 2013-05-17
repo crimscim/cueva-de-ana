@@ -14,6 +14,7 @@
 @property (nonatomic,strong) UIWebView *webView;
 @property (nonatomic,weak) id <HostParserModelDelegate> delegate;
 - (void)getFileURLFromURL:(NSURL*)url;
+- (void)cancelAll;
 @end
 
 @protocol HostParserModelDelegate <NSObject>
