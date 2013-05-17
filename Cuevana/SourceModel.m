@@ -186,8 +186,6 @@
 //                                                                             error:&error];
 //    if (error) return;
     
-    
-    NSLog(@"Subtitles: %@",playerString);
     NSRange rangeOne = [playerString rangeOfString:@"captions.files="];
     NSRange rangeTwo = [playerString rangeOfString:@"&captions.labels="];
     

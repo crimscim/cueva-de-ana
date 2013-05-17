@@ -90,19 +90,23 @@ typedef enum
 {
     if (self.type == HostParserTypeFileBox)
     {
-        [self parseFileBox];
+        [self parseHost:HostParserTypeFileBox fromResource:@"filebox"];
     }
     else if(self.type == HostParserTypeBillionUploads)
     {
-        [self parseBillionUploads];
+        [self parseHost:HostParserTypeBillionUploads fromResource:@"billionUploads"];
     }
     else if (self.type == HostParserTypeMovreel)
     {
-        [self parseMovreel];
+        [self parseHost:HostParserTypeMovreel fromResource:@"movreel"];
     }
     else if (self.type == HostParserTypeUpToBox)
     {
-        [self parseUpToBox];
+        [self parseHost:HostParserTypeUpToBox fromResource:@"uptobox"];
+    }
+    else if (self.type == HostParserTypeLimeVideo)
+    {
+        [self parseHost:HostParserTypeLimeVideo fromResource:@"limevideo"];
     }
     else
     {
@@ -141,21 +145,4 @@ typedef enum
     }
 }
 
-- (void)parseFileBox
-{
-    [self parseHost:HostParserTypeFileBox fromResource:@"filebox"];
-}
-- (void)parseBillionUploads
-{
-    [self parseHost:HostParserTypeBillionUploads fromResource:@"billionUploads"];
-}
-- (void)parseMovreel
-{
-    [self parseHost:HostParserTypeMovreel fromResource:@"movreel"];
-}
-- (void)parseUpToBox
-{
-    [self parseHost:HostParserTypeUpToBox fromResource:@"uptobox"];
-
-}
 @end

@@ -16,6 +16,7 @@
 		350BF3EB1746D87800EA4E24 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 350BF3E01746D87800EA4E24 /* AFURLConnectionOperation.m */; };
 		350BF3EC1746D87800EA4E24 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 350BF3E21746D87800EA4E24 /* AFXMLRequestOperation.m */; };
 		350BF3ED1746D87800EA4E24 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 350BF3E41746D87800EA4E24 /* UIImageView+AFNetworking.m */; };
+		350BF3F01746E22100EA4E24 /* limevideo.js in Resources */ = {isa = PBXBuildFile; fileRef = 350BF3EE1746E18300EA4E24 /* limevideo.js */; };
 		357351421740295E00CF7E72 /* EpisodesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 357351411740295E00CF7E72 /* EpisodesModel.m */; };
 		3573514717403F3E00CF7E72 /* SourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3573514617403F3E00CF7E72 /* SourceModel.m */; };
 		358881F91746756E00D858A2 /* uptobox.js in Resources */ = {isa = PBXBuildFile; fileRef = 35F60EC51745EBA000555779 /* uptobox.js */; };
@@ -84,6 +85,7 @@
 		350BF3E21746D87800EA4E24 /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		350BF3E31746D87800EA4E24 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		350BF3E41746D87800EA4E24 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		350BF3EE1746E18300EA4E24 /* limevideo.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = limevideo.js; path = Parsers/limevideo.js; sourceTree = "<group>"; };
 		357351401740295E00CF7E72 /* EpisodesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpisodesModel.h; sourceTree = "<group>"; };
 		357351411740295E00CF7E72 /* EpisodesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EpisodesModel.m; sourceTree = "<group>"; };
 		3573514317402B1300CF7E72 /* CuevanaConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CuevanaConstants.h; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 		35AA12121740573B00845FA6 /* Parser */ = {
 			isa = PBXGroup;
 			children = (
+				350BF3EE1746E18300EA4E24 /* limevideo.js */,
 				35F60EC51745EBA000555779 /* uptobox.js */,
 				35F60EB51745D52800555779 /* billionUploads.js */,
 				35F60EB61745D52800555779 /* filebox.js */,
@@ -447,6 +450,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				350BF3F01746E22100EA4E24 /* limevideo.js in Resources */,
 				358881F91746756E00D858A2 /* uptobox.js in Resources */,
 				35F60EC21745D5A600555779 /* billionUploads.js in Resources */,
 				35F60EC31745D5A600555779 /* filebox.js in Resources */,
