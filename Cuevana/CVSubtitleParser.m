@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 Toush. All rights reserved.
 //
 
-#import "CVSrtParser.h"
+#import "CVSubtitleParser.h"
 
-@interface CVSrtParser ()
+@interface CVSubtitleParser ()
 @property (strong) NSMutableArray *arraySrtItems;
 @end
 
-@implementation CVSrtParser
+@implementation CVSubtitleParser
 
 #pragma mark - init
 - (id)initWithContentOfURL:(NSURL*)url
@@ -40,7 +40,7 @@
 #pragma mark - Parsing
 - (void)parseSrtFileFromURL:(NSURL*)url
 {
-    __weak CVSrtParser *weakSelf = self;
+    __weak CVSubtitleParser *weakSelf = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSString *srtContent = [[NSString alloc] initWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
         [weakSelf parseSrtFileContent:srtContent];
@@ -73,10 +73,9 @@
         NSDate *dateStart = [formater dateFromString:times[0]];
         NSDate *dateEnd   = [formater dateFromString:times[1]];
         
-        CVSrtItem *item = [CVSrtItem new];
+        CVSubtitleItem *item = [CVSubtitleItem new];
         item.timeStart = dateStart.timeIntervalSince1970-timeIntervalZero;
         item.timeEnd   = dateEnd.timeIntervalSince1970-timeIntervalZero;
-        item.duration  = item.timeEnd-item.timeStart;
         
         if (splitCount < 3) continue;
         
@@ -95,13 +94,13 @@
 
 #pragma mark - Fetching
 //binary search for result
-- (CVSrtItem*)srtItemAtTime:(double)time
+- (CVSubtitleItem*)subtitleItemAtTime:(double)time
 {
     NSUInteger count = self.arraySrtItems.count;
     NSUInteger low   = 0;
     NSUInteger mid   = 0;
     NSUInteger high  = count;
-    CVSrtItem *item  = nil;
+    CVSubtitleItem *item  = nil;
     
     while (low <= high)
     {
@@ -129,7 +128,7 @@
 
 @end
 
-@implementation CVSrtItem
+@implementation CVSubtitleItem
 -(NSString*)description
 {
     

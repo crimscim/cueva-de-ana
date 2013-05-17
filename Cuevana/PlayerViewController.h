@@ -9,7 +9,9 @@
 #import <MediaPlayer/MediaPlayer.h>
 
 @interface PlayerViewController : MPMoviePlayerViewController
-//using a button... just to use the vertical alignment
-@property (nonatomic,strong) UIButton *buttonSubtitles;
-@property (nonatomic,strong) NSURL *urlSubs;
+@property(nonatomic,strong) UIView *viewPlayerControls;
+@property(nonatomic,strong) UIView *viewPlayerVideoContent;
+
+- (void)loadSubtitlesFromURL:(NSURL*)url;
+- (void)setCurrentSubtitleText:(NSString*)text;
 @end

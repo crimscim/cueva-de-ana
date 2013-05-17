@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		357351421740295E00CF7E72 /* EpisodesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 357351411740295E00CF7E72 /* EpisodesModel.m */; };
 		3573514717403F3E00CF7E72 /* SourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3573514617403F3E00CF7E72 /* SourceModel.m */; };
+		358881F91746756E00D858A2 /* uptobox.js in Resources */ = {isa = PBXBuildFile; fileRef = 35F60EC51745EBA000555779 /* uptobox.js */; };
 		359B8D3F1640D0F9009F8851 /* EpisodesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 359B8D3E1640D0F9009F8851 /* EpisodesViewController.m */; };
 		359B8D451640D15E009F8851 /* EpisodeResultObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 359B8D441640D15E009F8851 /* EpisodeResultObject.m */; };
 		35A37B17173EF01300CFF796 /* SearchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A37B16173EF01300CFF796 /* SearchModel.m */; };
@@ -19,7 +20,7 @@
 		35A5B67B165406670065D723 /* SearchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A5B67A165406670065D723 /* SearchCell.m */; };
 		35A633DE1744650B0023131F /* UIWebView+JS.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A633DD1744650B0023131F /* UIWebView+JS.m */; };
 		35A633E117452E800023131F /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A633E017452E800023131F /* PlayerViewController.m */; };
-		35A633E517452EAD0023131F /* CVSrtParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A633E417452EAD0023131F /* CVSrtParser.m */; };
+		35A633E517452EAD0023131F /* CVSubtitleParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 35A633E417452EAD0023131F /* CVSubtitleParser.m */; };
 		35A633E8174533460023131F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35A633E6174533300023131F /* QuartzCore.framework */; };
 		35AA12151740575D00845FA6 /* HostParserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 35AA12141740575D00845FA6 /* HostParserModel.m */; };
 		35B803D0164230E30042DA17 /* SourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35B803CF164230E30042DA17 /* SourcesViewController.m */; };
@@ -31,7 +32,6 @@
 		35F60EC21745D5A600555779 /* billionUploads.js in Resources */ = {isa = PBXBuildFile; fileRef = 35F60EB51745D52800555779 /* billionUploads.js */; };
 		35F60EC31745D5A600555779 /* filebox.js in Resources */ = {isa = PBXBuildFile; fileRef = 35F60EB61745D52800555779 /* filebox.js */; };
 		35F60EC41745D5A600555779 /* movreel.js in Resources */ = {isa = PBXBuildFile; fileRef = 35F60EB31745D51A00555779 /* movreel.js */; };
-		35F60EC61745EBA000555779 /* uptobox.js in Sources */ = {isa = PBXBuildFile; fileRef = 35F60EC51745EBA000555779 /* uptobox.js */; };
 		35FF356016401C9C00A3C6DB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35FF355F16401C9C00A3C6DB /* UIKit.framework */; };
 		35FF356216401C9C00A3C6DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35FF356116401C9C00A3C6DB /* Foundation.framework */; };
 		35FF356416401C9C00A3C6DB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35FF356316401C9C00A3C6DB /* CoreGraphics.framework */; };
@@ -87,8 +87,8 @@
 		35A633DD1744650B0023131F /* UIWebView+JS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+JS.m"; sourceTree = "<group>"; };
 		35A633DF17452E800023131F /* PlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewController.h; sourceTree = "<group>"; };
 		35A633E017452E800023131F /* PlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerViewController.m; sourceTree = "<group>"; };
-		35A633E317452EAD0023131F /* CVSrtParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVSrtParser.h; sourceTree = "<group>"; };
-		35A633E417452EAD0023131F /* CVSrtParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVSrtParser.m; sourceTree = "<group>"; };
+		35A633E317452EAD0023131F /* CVSubtitleParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVSubtitleParser.h; sourceTree = "<group>"; };
+		35A633E417452EAD0023131F /* CVSubtitleParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVSubtitleParser.m; sourceTree = "<group>"; };
 		35A633E6174533300023131F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		35AA12131740575D00845FA6 /* HostParserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HostParserModel.h; sourceTree = "<group>"; };
 		35AA12141740575D00845FA6 /* HostParserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HostParserModel.m; sourceTree = "<group>"; };
@@ -254,8 +254,8 @@
 		35A633E217452E890023131F /* Player */ = {
 			isa = PBXGroup;
 			children = (
-				35A633E317452EAD0023131F /* CVSrtParser.h */,
-				35A633E417452EAD0023131F /* CVSrtParser.m */,
+				35A633E317452EAD0023131F /* CVSubtitleParser.h */,
+				35A633E417452EAD0023131F /* CVSubtitleParser.m */,
 				35A633DF17452E800023131F /* PlayerViewController.h */,
 				35A633E017452E800023131F /* PlayerViewController.m */,
 			);
@@ -451,6 +451,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				358881F91746756E00D858A2 /* uptobox.js in Resources */,
 				35F60EC21745D5A600555779 /* billionUploads.js in Resources */,
 				35F60EC31745D5A600555779 /* filebox.js in Resources */,
 				35F60EC41745D5A600555779 /* movreel.js in Resources */,
@@ -510,8 +511,7 @@
 				35AA12151740575D00845FA6 /* HostParserModel.m in Sources */,
 				35A633DE1744650B0023131F /* UIWebView+JS.m in Sources */,
 				35A633E117452E800023131F /* PlayerViewController.m in Sources */,
-				35A633E517452EAD0023131F /* CVSrtParser.m in Sources */,
-				35F60EC61745EBA000555779 /* uptobox.js in Sources */,
+				35A633E517452EAD0023131F /* CVSubtitleParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

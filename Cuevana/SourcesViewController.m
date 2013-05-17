@@ -15,8 +15,11 @@
 <UITableViewDataSource,UITableViewDelegate,SourceModelDelegate,HostParserModelDelegate,UIActionSheetDelegate>
 
 @property(nonatomic,strong) IBOutlet UITableView *tableView;
+@property(nonatomic,strong) IBOutlet UIControl *viewMessage;
+
 @property(nonatomic,strong) SourceModel *model;
 @property(nonatomic,strong) HostParserModel *hostParserModel;
+
 @property(nonatomic,strong) PlayerViewController *player;
 @property(nonatomic,assign) NSUInteger selectedSub;
 @end
@@ -112,15 +115,23 @@
     
 #warning this is added just for testing
     self.hostParserModel.webView.frame = self.view.bounds;
+    self.hostParserModel.webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.hostParserModel.webView];
+    
+    self.viewMessage.frame = self.view.bounds;
+    [self.view addSubview:self.viewMessage];
+    
     [self.hostParserModel getFileURLFromURL:url];
 }
 -(void)sourceModel:(SourceModel *)model didFinishLoadingSubtitles:(NSArray *)subsArray
-{
-    //should downlaod the srt file.. or select one to download...
+{    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Subtitles"
+                                                             delegate:self
+                                                    cancelButtonTitle:nil
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:nil];
     
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Subtitles" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-    
+    //get the subtitles language
     NSString *srt = @"ID.srt";
     for (NSString *urlSubs in subsArray)
     {
@@ -130,6 +141,7 @@
         [actionSheet addButtonWithTitle:lang];
     }
     [actionSheet addButtonWithTitle:@"None"];
+    
     [actionSheet showInView:self.view];
     
 }
@@ -138,14 +150,17 @@
 {
     NSLog(@"File URL: %@",url);
     
+    [self.viewMessage removeFromSuperview];
     [model.webView removeFromSuperview];
+    
     self.player = [[PlayerViewController alloc] initWithContentURL:url];
     [self presentMoviePlayerViewControllerAnimated:self.player];
     [self.player.moviePlayer prepareToPlay];
-    
+
+    //if the user has selected subtitles will use it
     if (self.model.arraySubtitles.count >0 && self.selectedSub < self.model.arraySubtitles.count)
     {
-         [self.player setUrlSubs:[NSURL URLWithString:self.model.arraySubtitles[self.selectedSub]]];
+         [self.player loadSubtitlesFromURL:[NSURL URLWithString:self.model.arraySubtitles[self.selectedSub]]];
     }
 }
 

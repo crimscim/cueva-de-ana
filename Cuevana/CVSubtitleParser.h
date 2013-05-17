@@ -9,18 +9,17 @@
 #import <Foundation/Foundation.h>
 
 
-@class CVSrtItem;
-@interface CVSrtParser : NSObject
+@class CVSubtitleItem;
+@interface CVSubtitleParser : NSObject
 - (id)initWithContentOfURL:(NSURL*)url;
 - (id)initWithContentString:(NSString*)content;
 //time in seconds (accept milliseconds)
-- (CVSrtItem*)srtItemAtTime:(double)time;
+- (CVSubtitleItem*)subtitleItemAtTime:(double)time;
 @end
 
-@interface CVSrtItem : NSObject
+@interface CVSubtitleItem : NSObject
 @property (assign) double timeStart;
 @property (assign) double timeEnd;
-@property (assign) double duration;
 @property (strong) NSString *text;
 @end
 

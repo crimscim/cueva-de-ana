@@ -8,11 +8,13 @@
 
 #import "PlayerViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "CVSrtParser.h"
+#import "CVSubtitleParser.h"
 @interface PlayerViewController ()
+//using a button... just to use the vertical alignment easily
+@property (nonatomic,strong) UIButton *buttonSubtitles;
+@property (nonatomic,strong) CVSubtitleParser *subsParser;
+@property (nonatomic,strong) CVSubtitleItem *currentSub;
 @property (nonatomic,weak) NSTimer *timerCurrentTime;
-@property (nonatomic,strong) CVSrtParser *subsParser;
-@property (nonatomic,strong) CVSrtItem *currentSub;
 @end
 
 @implementation PlayerViewController
@@ -22,23 +24,36 @@
     self = [super init];
     if (self)
     {
-        [self installMovieNotificationObservers];
+        [self addNotifications];
+        [self configureSubViews];
     }
     return self;
 }
+- (void)configureSubViews
+{
+    if (self.moviePlayer.view.subviews.count > 0)
+    {
+        UIView *view = self.moviePlayer.view.subviews[0];
+        if (view.subviews.count > 0)
+        {
+            UIView *sView = view.subviews[0];
+            self.viewPlayerVideoContent = [sView viewWithTag:1002];
+            self.viewPlayerControls     = [sView viewWithTag:1003];
+        }
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     [self configureButtonSubtitles];
 }
-
-- (void)setUrlSubs:(NSURL *)urlSubs
+- (void)loadSubtitlesFromURL:(NSURL*)url
 {
-    _urlSubs = urlSubs;
-    
-    self.subsParser = [[CVSrtParser alloc] initWithContentOfURL:urlSubs];
+     self.subsParser = [[CVSubtitleParser alloc] initWithContentOfURL:url];
 }
+
 - (void)configureButtonSubtitles
 {
     self.buttonSubtitles = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -50,6 +65,7 @@
     self.buttonSubtitles.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     self.buttonSubtitles.autoresizingMask           = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.buttonSubtitles.contentEdgeInsets          = UIEdgeInsetsMake(0, 0, 10, 0);
+    
     self.buttonSubtitles.titleLabel.layer.shadowColor   = [UIColor blackColor].CGColor;
     self.buttonSubtitles.titleLabel.layer.shadowRadius  = 2.0;
     self.buttonSubtitles.titleLabel.layer.shadowOpacity = 1;
@@ -63,32 +79,22 @@
     
     [self.buttonSubtitles setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
-    self.buttonSubtitles.frame = self.moviePlayer.view.bounds;
  
     
-    if (self.moviePlayer.view.subviews.count > 0)
+    if (self.viewPlayerVideoContent)
     {
-        UIView *sView = self.moviePlayer.view.subviews[0];
-        
-        if (sView.subviews.count > 0)
-        {
-            UIView *ssView = sView.subviews[0];
-            UIView *sssView = [ssView viewWithTag:1002];
-            [sssView addSubview:self.buttonSubtitles];
-        }
-        else
-        {
-            [self.moviePlayer.view addSubview:self.buttonSubtitles];
-        }
+        self.buttonSubtitles.frame = self.viewPlayerVideoContent.bounds;
+        [self.viewPlayerVideoContent addSubview:self.buttonSubtitles];
     }
     else
     {
+        self.buttonSubtitles.frame = self.moviePlayer.view.bounds;
         [self.moviePlayer.view addSubview:self.buttonSubtitles];
     }
     
 }
 
-- (void)setSubsText:(NSString*)text
+- (void)setCurrentSubtitleText:(NSString*)text
 {
     [self.buttonSubtitles setTitle:text forState:UIControlStateNormal];
 }
@@ -109,59 +115,52 @@
 }
 
 //these methods are from the Apple tutorial
--(void)installMovieNotificationObservers
+-(void)addNotifications
 {
     MPMoviePlayerController *player = self.moviePlayer;
     
 	[[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(loadStateDidChange:)
+                                             selector:@selector(didReceiveLoadStateDidChangeNotification:)
                                                  name:MPMoviePlayerLoadStateDidChangeNotification
                                                object:player];
     
 	[[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(moviePlayBackDidFinish:)
+                                             selector:@selector(didReceivePlayBackDidFinishNotification:)
                                                  name:MPMoviePlayerPlaybackDidFinishNotification
                                                object:player];
     
 	[[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(mediaIsPreparedToPlayDidChange:)
+                                             selector:@selector(didReceiveIsPreparedToPlayDidChangeNotification:)
                                                  name:MPMediaPlaybackIsPreparedToPlayDidChangeNotification
                                                object:player];
     
 	[[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(moviePlayBackStateDidChange:)
+                                             selector:@selector(didReceivePlayBackStateDidChangeNotification:)
                                                  name:MPMoviePlayerPlaybackStateDidChangeNotification
                                                object:player];
 }
-
+#pragma mark - Notificacions
 /* Handle movie load state changes. */
-- (void)loadStateDidChange:(NSNotification *)notification
+- (void)didReceiveLoadStateDidChangeNotification:(NSNotification *)notification
 {
 	MPMoviePlayerController *player = notification.object;
 	MPMovieLoadState loadState = player.loadState;
     
-	/* The load state is not known at this time. */
 	if (loadState & MPMovieLoadStateUnknown)
 	{
-        
         NSLog(@"loadStateDidChange - unknown");
 	}
-	
-	/* The buffer has enough data that playback can begin, but it
-	 may run out of data before playback finishes. */
+
 	if (loadState & MPMovieLoadStatePlayable)
 	{
         NSLog(@"loadStateDidChange - playable");
 	}
 	
-	/* Enough data has been buffered for playback to continue uninterrupted. */
 	if (loadState & MPMovieLoadStatePlaythroughOK)
 	{
-        
         NSLog(@"loadStateDidChange - playthrough ok");
 	}
 	
-	/* The buffering of data has stalled. */
 	if (loadState & MPMovieLoadStateStalled)
 	{
         NSLog(@"loadStateDidChange - stalled");
@@ -169,25 +168,20 @@
 }
 
 /*  Notification called when the movie finished playing. */
-- (void) moviePlayBackDidFinish:(NSNotification*)notification
+- (void)didReceivePlayBackDidFinishNotification:(NSNotification*)notification
 {
     NSNumber *reason = [[notification userInfo] objectForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey];
     
 	switch ([reason integerValue])
 	{
-            /* The end of the movie was reached. */
 		case MPMovieFinishReasonPlaybackEnded:
-            /*
-             Add your code here to handle MPMovieFinishReasonPlaybackEnded.
-             */
+
 			break;
             
-            /* An error was encountered during playback. */
 		case MPMovieFinishReasonPlaybackError:
-            NSLog(@"An error was encountered during playback: %@",notification.userInfo[@"error"]);
+            NSLog(@"Playback error: %@",notification.userInfo[@"error"]);
 			break;
             
-            /* The user stopped playback. */
 		case MPMovieFinishReasonUserExited:
 
 			break;
@@ -196,46 +190,36 @@
 			break;
 	}
 }
-- (void) mediaIsPreparedToPlayDidChange:(NSNotification*)notification
+- (void)didReceiveIsPreparedToPlayDidChangeNotification:(NSNotification*)notification
 {
-    NSLog(@"Prepared to Play?");
     [self.moviePlayer play];
 }
 
 /* Called when the movie playback state has changed. */
-- (void)moviePlayBackStateDidChange:(NSNotification*)notification
+- (void)didReceivePlayBackStateDidChangeNotification:(NSNotification*)notification
 {
 	MPMoviePlayerController *player = notification.object;
     
-	/* Playback is currently stopped. */
 	if (player.playbackState == MPMoviePlaybackStateStopped)
 	{
-        NSLog(@"moviePlayBackStateDidChange - stopped");
         [self stopTimer];
 	}
-	/*  Playback is currently under way. */
 	else if (player.playbackState == MPMoviePlaybackStatePlaying)
 	{
-        NSLog(@"moviePlayBackStateDidChange - playing");
         [self startTimer];
 	}
-	/* Playback is currently paused. */
 	else if (player.playbackState == MPMoviePlaybackStatePaused)
 	{
-        NSLog(@"moviePlayBackStateDidChange - paused");
         [self stopTimer];
 	}
-	/* Playback is temporarily interrupted, perhaps because the buffer
-	 ran out of content. */
 	else if (player.playbackState == MPMoviePlaybackStateInterrupted)
 	{
-        NSLog(@"moviePlayBackStateDidChange - interrupted");
         [self stopTimer];
 	}
 }
 #pragma mark - remove notifications
 /* Remove the movie notification observers from the movie object. */
--(void)removeMovieNotificationHandlers
+-(void)removeNotifications
 {
     MPMoviePlayerController *player = self.moviePlayer;
     
@@ -244,12 +228,6 @@
     [[NSNotificationCenter defaultCenter]removeObserver:self name:MPMediaPlaybackIsPreparedToPlayDidChangeNotification object:player];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:MPMoviePlayerPlaybackStateDidChangeNotification object:player];
 }
-
--(void)dealloc
-{
-    [self removeMovieNotificationHandlers];
-}
-
 
 #pragma mark - Timer
 - (void)didTriggerTimer:(NSTimer*)timer
@@ -265,19 +243,22 @@
     }
     else
     {
-        self.currentSub = [self.subsParser srtItemAtTime:current];
+        self.currentSub = [self.subsParser subtitleItemAtTime:current];
         
         if (self.currentSub == nil)
         {
-            [self setSubsText:@""];
+            [self setCurrentSubtitleText:@""];
         }
         else
         {
-            [self setSubsText:self.currentSub.text];
+            [self setCurrentSubtitleText:self.currentSub.text];
         }
         
     }
 }
-
-
+#pragma mark - EOF
+-(void)dealloc
+{
+    [self removeNotifications];
+}
 @end
