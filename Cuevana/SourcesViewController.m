@@ -12,12 +12,13 @@
 #import "HostParserModel.h"
 #import "PlayerViewController.h"
 @interface SourcesViewController ()
-<UITableViewDataSource,UITableViewDelegate,SourceModelDelegate,HostParserModelDelegate>
+<UITableViewDataSource,UITableViewDelegate,SourceModelDelegate,HostParserModelDelegate,UIActionSheetDelegate>
 
 @property(nonatomic,strong) IBOutlet UITableView *tableView;
 @property(nonatomic,strong) SourceModel *model;
 @property(nonatomic,strong) HostParserModel *hostParserModel;
 @property(nonatomic,strong) PlayerViewController *player;
+@property(nonatomic,assign) NSUInteger selectedSub;
 @end
 
 @implementation SourcesViewController
@@ -57,6 +58,7 @@
     [super viewDidLoad];
     
     self.title = @"Sources";
+    self.selectedSub = INT16_MAX;
 }
 
 #pragma mark - TableView Delegate
@@ -117,7 +119,7 @@
 {
     //should downlaod the srt file.. or select one to download...
     
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Subtitles" delegate:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Subtitles" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     
     NSString *srt = @"ID.srt";
     for (NSString *urlSubs in subsArray)
@@ -141,22 +143,24 @@
     [self presentMoviePlayerViewControllerAnimated:self.player];
     [self.player.moviePlayer prepareToPlay];
     
-    if (self.model.arraySubtitles.count >0)
+    if (self.model.arraySubtitles.count >0 && self.selectedSub < self.model.arraySubtitles.count)
     {
-         [self.player setUrlSubs:[NSURL URLWithString:self.model.arraySubtitles[0]]];
+         [self.player setUrlSubs:[NSURL URLWithString:self.model.arraySubtitles[self.selectedSub]]];
+    }
+}
+
+#pragma mark - actionSheet Delegate
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex < self.model.arraySubtitles.count)
+    {
+        self.selectedSub = buttonIndex;
+    }
+    else
+    {
+        self.selectedSub = INT16_MAX;
     }
 }
 
 @end
-@interface NSLocale (LocalizedCountries)
-- (NSArray*) localizedCountryNames;
-@end
-@implementation NSLocale (LocalizedCountries)
-- (NSArray*) localizedCountryNames
-{
-    NSMutableArray *array = [NSMutableArray array];
-    for ( NSString* code in [NSLocale ISOCountryCodes] )
-        [array addObject:[self displayNameForKey:NSLocaleCountryCode value:code]];
-    return [array sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-}
-@end
+

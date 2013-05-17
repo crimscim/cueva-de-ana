@@ -10,6 +10,7 @@
 #import "UIWebView+JS.h"
 typedef enum
 {
+    HostParserTypeNone,
     HostParserTypeFileBox,
     HostParserTypeBayFiles,
     HostParserTypeMovreel,
@@ -23,6 +24,8 @@ typedef enum
 @interface HostParserModel ()
 <UIWebViewDelegate>
 @property (nonatomic,assign) HostParserType type;
+@property (nonatomic,assign) HostParserType currentParser;
+@property (nonatomic,strong) NSString *parsingString;
 @end
 @implementation HostParserModel
 
@@ -89,40 +92,66 @@ typedef enum
     {
         [self parseBillionUploads];
     }
+    else if (self.type == HostParserTypeMovreel)
+    {
+        [self parseMovreel];
+    }
+    else if (self.type == HostParserTypeUpToBox)
+    {
+        [self parseUpToBox];
+    }
+    else
+    {
+        return;
+    }
+    NSString *response = [webView js:self.parsingString];
+    
+
+    //why 12?... mm I don't know :D.. http:// .mp4
+    if ([response isKindOfClass:[NSString class]] && response.length > 12)
+    {
+        [self.delegate hostParserModel:self didFinishLoadingFileURL:[NSURL URLWithString:response]];
+    }
 
 }
+
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    NSString *urlString = request.URL.absoluteString;
+    
+    if ([urlString rangeOfString:@"fhserve"].location!=NSNotFound ||
+        [urlString rangeOfString:@"yieldmanager"].location!=NSNotFound)
+    {
+        return NO;
+    }
+    
+    return YES;
+}
+- (void)parseHost:(HostParserType)type fromResource:(NSString*)resource
+{
+    if (self.parsingString == nil || self.currentParser != type)
+    {
+        NSString *path = [[NSBundle mainBundle] pathForResource:resource ofType:@"js"];
+        self.parsingString = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        self.currentParser = type;
+    }
+}
+
 - (void)parseFileBox
 {
-    BOOL isButton = [self.webView js:@"$('#btn_download').length;"].boolValue;
-    BOOL isPlayer = [self.webView js:@"$('#player').length;"].boolValue;
-    if (isButton)
-    {
-        [self.webView js:@"setTimeout(\"$('#btn_download').click();\",1000*10);"];
-    }
-    else if (isPlayer && ![self.webView js:@"player_once;"].boolValue)
-    {
-        //NSString *url = [self.webView js:@"$('input.b').filter(':button').attr('onclick').slice(19,-1);"];
-        NSString *url = [self.webView js:@"$('#player').attr('href');"];
-        [self.delegate hostParserModel:self didFinishLoadingFileURL:[NSURL URLWithString:url]];
-        
-        [self.webView js:@"var player_once = true;"];
-    }
+    [self parseHost:HostParserTypeFileBox fromResource:@"filebox"];
 }
 - (void)parseBillionUploads
 {
-    BOOL isButton = [self.webView js:@"$('#btn_download').length;"].boolValue;
-    BOOL isPlayer = [self.webView js:@"$('#dlink').length;"].boolValue;
-    if (isButton)
-    {
-        [self.webView js:@"setTimeout(\"$('#btn_download').click();\",1000*5);"];
-    }
-    else if (isPlayer && ![self.webView js:@"player_once;"].boolValue)
-    {
-        NSString *url = [self.webView js:@"$('#dlink').attr('href');"];
-        [self.delegate hostParserModel:self didFinishLoadingFileURL:[NSURL URLWithString:url]];
-        
-        [self.webView js:@"var player_once = true;"];
-    }
+    [self parseHost:HostParserTypeBillionUploads fromResource:@"billionUploads"];
+}
+- (void)parseMovreel
+{
+    [self parseHost:HostParserTypeMovreel fromResource:@"movreel"];
+}
+- (void)parseUpToBox
+{
+    [self parseHost:HostParserTypeUpToBox fromResource:@"uptobox"];
 
 }
 @end
