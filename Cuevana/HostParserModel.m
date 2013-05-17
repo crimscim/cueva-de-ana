@@ -108,13 +108,16 @@ typedef enum
     {
         [self parseHost:HostParserTypeLimeVideo fromResource:@"limevideo"];
     }
+    else if (self.type == HostParserTypeBayFiles)
+    {
+        [self parseHost:HostParserTypeBayFiles fromResource:@"bayfiles"];
+    }
     else
     {
         return;
     }
     NSString *response = [webView js:self.parsingString];
     
-
     //why 12?... mm I don't know :D.. http:// .mp4
     if ([response isKindOfClass:[NSString class]] && response.length > 12)
     {
@@ -130,6 +133,13 @@ typedef enum
     if ([urlString rangeOfString:@"fhserve"].location!=NSNotFound ||
         [urlString rangeOfString:@"yieldmanager"].location!=NSNotFound)
     {
+        return NO;
+    }//special case for bayfiles.. hate this shit
+    else if (self.type == HostParserTypeBayFiles &&
+             [urlString rangeOfString:@"bayfiles.net"].location == NSNotFound &&
+             [urlString hasSuffix:@".mp4"])
+    {
+        [self.delegate hostParserModel:self didFinishLoadingFileURL:[NSURL URLWithString:urlString]];
         return NO;
     }
     
