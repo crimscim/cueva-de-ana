@@ -1,21 +1,23 @@
-var count_down = $('#countdown_str span').first();
-var count_loaded = count_down.length;
+var button_down = $('#btn_download');
+var button_down_enable = button_down.length;
 
 var player = $('#dlink');
 var player_loaded = player.length;
 
-if (count_loaded && typeof click_sent === 'undefined') 
+if (player_loaded && typeof player_url === 'undefined')
 {
-	var timeout = parseInt(count_down[0].textContent);
-	setTimeout((function(){
-		$('#btn_download').removeAttr('disabled');
-		$('#btn_download').click();
-	}),1000*timeout);
-	click_sent = true;
-	'';
+    var link = player.attr('href');
+    if (link.length)
+    {
+        player_url = true;
+    }
 }
-else if (player_loaded && typeof player_ready === 'undefined')
+else if (button_down_enable && typeof click === 'undefined')
 {
-	player_ready = true;
- 	player.attr('href');
+    (function(){
+      window.open = (function(a,b,c){document.location = a;});
+      button_down.removeAttr('disabled');
+      button_down.click();
+      click = true;
+      }());
 }

@@ -129,9 +129,10 @@ typedef enum
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSString *urlString = request.URL.absoluteString;
-    
     if ([urlString rangeOfString:@"fhserve"].location!=NSNotFound ||
-        [urlString rangeOfString:@"yieldmanager"].location!=NSNotFound)
+        [urlString rangeOfString:@"yieldmanager"].location!=NSNotFound ||
+        [urlString rangeOfString:@"propellerads"].location!=NSNotFound ||
+        [urlString rangeOfString:@"facebook"].location!=NSNotFound)
     {
         return NO;
     }//special case for bayfiles.. hate this shit
